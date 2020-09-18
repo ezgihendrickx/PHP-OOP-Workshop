@@ -25,7 +25,7 @@ class Beverage
         $this->price = $price;
     }
 
-    public function __get($name)
+    public function __get($name) //this is old one 
     {
         return $this->$name;
     }
@@ -40,9 +40,38 @@ class Beverage
     {
         return "This beverage is " . $this->temperature . " and " . $this->color . ".";
     }
+
+    /**
+     * Get the value of temperature 
+     */
+    public function getTemperature()
+    {
+        return $this->temperature;
+    }
+
+    /**
+     * Get the value of price
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+
+    /**
+     * Set the value of price
+     *
+     * @return  self
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
 }
 
 $cola = new Beverage('black', 2);
-echo $cola->temperature . "<br>";
-$cola->price = 3.5;
-echo $cola->price . "<br>";
+echo $cola->getTemperature() . "<br>";
+$cola->setPrice(3.5);
+echo $cola->getPrice() . "<br>";

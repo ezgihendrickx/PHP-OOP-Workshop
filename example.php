@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 
 interface Discount
 {
-    public function apply(Product $product): float;
+    public function applyDiscount(Product $product): float;
 }
 
 class FixedDiscount implements Discount
@@ -21,7 +21,7 @@ class FixedDiscount implements Discount
         $this->value = $value;
     }
 
-    public function apply(Product $product): float
+    public function applyDiscount(Product $product): float
     {
         return $product->getPrice() - $this->value;
     }
@@ -36,7 +36,7 @@ class VariableDiscount implements Discount
         $this->value = $value;
     }
 
-    public function apply(Product $product): float
+    public function applyDiscount(Product $product): float
     {
         return round($product->getPrice() - ($product->getPrice() * $this->value / 100));
     }
@@ -51,7 +51,7 @@ class NotADiscountDiscount implements Discount
         $this->value = $value;
     }
 
-    public function apply(Product $product): float
+    public function applyDiscount(Product $product): float
     {
         return $product->getPrice() * 3;
     }
@@ -94,7 +94,7 @@ class Product
 
     public function calculatePrice(): float
     {
-        return $this->discount->apply($this) * self::VAT;
+        return $this->discount->applyDiscount($this) * self::VAT;
     }
 }
 

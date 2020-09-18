@@ -24,7 +24,7 @@ class Beverage
     private string $temperature;
     private string $color;
     private float $price;
-    const BARNAME = "Django";
+    protected const BARNAME = "Django";
 
 
     public function __construct(string $color, float $price, string $temperature = "cold")
@@ -51,7 +51,7 @@ class Beer extends Beverage
 {
     private string $name;
     private float $alcoholpercentage;
-
+    private const BEERNAME = "Westmalle";
     public function __construct(string $name, float $alcoholpercentage, string $color, float $price, string $temperature = "cold")
     {
         $this->name = $name;
@@ -66,14 +66,21 @@ class Beer extends Beverage
 
     public function invite(): string
     {
-        return "Hey I'm at " . parent::BARNAME . " come over and let's have a beer";
+        return "Hey I'm at " . parent::barInfo() . " come over and let's have a beer";
+    }
+    public  function getFavBeerName(): string
+    {
+        return self::BEERNAME;
     }
 }
 
-echo Beverage::BARNAME . "<br>";
+//echo Beverage::BARNAME . "<br>";
 echo "<br>";
 $cola = new Beverage('black', 2);
 $duvel = new Beer('Duvel', 8.5, 'blond', 3.5);
 echo $cola->barInfo() . "<br>";
 echo "<br>";
 echo $duvel->invite() . "<br>";
+echo $duvel->getFavBeerName();
+$water = new Beer('Jupiler', 4, "blond", 2);
+echo $water->getFavBeerName(); //never changes omdat const is.
